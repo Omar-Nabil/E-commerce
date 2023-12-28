@@ -1,0 +1,4 @@
+<select id="category" class="form-control" (change)="sendCat($event)">
+  <option value="all">All</option>
+  <option *ngFor="let cat of allCategories" [selected]="cat === selected" [value]="cat">{{cat}}</option>
+</select>

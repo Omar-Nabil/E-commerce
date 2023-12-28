@@ -1,0 +1,88 @@
+<div class="p-5">
+  <div class="rounded rounded-1 border border-1 p-3">
+    <div class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add" (click)="add()">Add Product</div>
+    <div>
+      <table class="table table-hover text-center">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products; let index = index">
+            <td><img [src]="product.thumbnail" width="35" height="35"></td>
+            <td>{{product.title}}</td>
+            <td>{{product.price}} $</td>
+            <td>
+              {{product.category}}
+            </td>
+            <td class="btn btn-warning p-2 m-2" (click)="showProduct(index+1)" data-bs-toggle="modal" data-bs-target="#add">Update</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal" tabindex="-1" id="add">
+  <div class="modal-dialog modal-dialog-centered" style="min-width: 800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="addForm">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="title">Title</label>
+              <input type="text" formControlName="title" placeholder="title" class="form-control">
+              <div *ngIf="!title?.valid && (title?.touched || title?.dirty)">
+                <p class="text-danger m-0 p-0" *ngIf="title?.getError('required')" >Title is <strong>Required</strong></p>
+                <p class="text-danger m-0 p-0" *ngIf="title?.getError('minlength')" >minlength is <strong>4</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="title">Price</label>
+              <input type="number" formControlName="price"  placeholder="price" class="form-control">
+              <div *ngIf="!price?.valid && (price?.touched || price?.dirty)">
+                <p class="text-danger m-0 p-0" *ngIf="price?.getError('required')">Price is <strong>Required</strong></p>
+                <p class="text-danger m-0 p-0" *ngIf="price?.getError('min')">min value is <strong>10</strong></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="category">Categories</label>
+              <app-selector (selectedCat)="getSelectedCat($event)" [selected]="addForm.get('cat')?.value"></app-selector>
+              <div>
+                <p class="text-danger m-0 p-0" *ngIf="!cat?.value">Category is <strong>Required</strong></p>
+              </div>
+            </div>
+            <div  class="my-2">
+              <label for="img" class="d-block">Image</label>
+              <img [src]="base64" width="100px" class="my-2" alt="">
+              <input type="file" class="form-control" id="img" (change)="toBase64($event)">
+              <div>
+                <p class="text-danger m-0 p-0" *ngIf="!image?.value">Image is <strong>Required</strong></p>
+              </div>
+            </div>
+            <div class="my-2">
+              <label for="desc">Description</label>
+              <textarea id="desc" formControlName="desc"  cols="20" rows="10" class="form-control"></textarea>
+              <div *ngIf="!desc?.valid && (desc?.touched || desc?.dirty)">
+                <p class="text-danger m-0 p-0" *ngIf="desc?.getError('required')">Description is <strong>Required</strong></p>
+                <p class="text-danger m-0 p-0" *ngIf="desc?.getError('minlength')">minlength is <strong>14</strong></p>
+              </div>
+            </div>
+          </div>
+          <button (click)="addProduct()" *ngIf="!update"  type="submit" [disabled]="addForm.invalid" class="btn btn-success p-2 rounded rounded-1 d-block ms-auto">Add Product</button>
+          <button (click)="doUpdateProduct()" *ngIf="update" type="submit" [disabled]="addForm.invalid" class="btn btn-warning p-2 rounded rounded-1 d-block ms-auto">Update Product</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

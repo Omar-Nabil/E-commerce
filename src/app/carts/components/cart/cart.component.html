@@ -1,0 +1,44 @@
+<div class="rounded rounded-2 border border-2 border-dark p-4 mt-4">
+  <div class="p-3">
+    <h4>Shopping Cart</h4>
+    <div class="d-flex justify-content-between align-items-center">
+      <p>you have <span>{{cartProducts.length}}</span> items in your cart</p>
+      <h6 class="btn btn-outline-danger" (click)="clearShoppingCart()">Clear Shopping Cart</h6>
+    </div>
+    <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of cartProducts; let index = index">
+          <td><img [src]="product.item.thumbnail" width="35" height="35"></td>
+          <td>{{product.item.title}}</td>
+          <td>{{product.item.price}} $</td>
+          <td>
+            <span class="btn btn-dark px-2 py-1 text-center" (click)="addProduct(index)">+</span>
+            <input type="number" class="w-50 mx-2 text-center" (change)="detectProductsAmount()" [(ngModel)]="product.quantity">
+            <span class="btn btn-dark px-2 py-1  text-center" (click)="delProduct(index)">-</span>
+          </td>
+          <td>{{+product.item.price * product.quantity}} $</td>
+          <td><span class="btn btn-danger px-2 py-1" (click)="deleteItem(index)">Delete</span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><strong>Total</strong> : {{total}}</td>
+          <td><span class="btn btn-success px-2 py-1" (click)="orderNow()">Order Now</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <h5 class="mt-5 alert alert-success" *ngIf="order"><strong>Well done!</strong> Your Order is Successfully Send</h5>
+  </div>
+</div>

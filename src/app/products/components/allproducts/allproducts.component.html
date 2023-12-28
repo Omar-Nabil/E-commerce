@@ -1,0 +1,9 @@
+<app-select [getcategories]="categories" (alertCategory)="filterProducts($event)"></app-select>
+<div class="gy-5 row row-cols-md-3 row-cols-lg-4 row-cols-sm-2 row-cols-1 p-3">
+    <div *ngFor="let product of products">
+      <app-item *ngIf="!isLoading" [recivedProduct]="product" (addToCart)="addProductToCart($event)"></app-item>
+    </div>
+</div>
+<div class="w-100 text-center mt-5" *ngIf="isLoading">
+  <app-spinner></app-spinner>
+</div>

@@ -1,0 +1,14 @@
+<div class="row row-cols-1 row-cols-md-2 g-4 p-5" *ngIf="product.id !== 0">
+  <div>
+    <img [src]="product.thumbnail" class="w-100" alt="">
+  </div>
+  <div class="p-3">
+    <p><strong>Title : </strong>{{product.title}}</p>
+    <p><strong>Category : </strong>{{product.category}}</p>
+    <p><strong>Description : </strong>{{product.description}}</p>
+    <p><strong>Rate : </strong>{{product.rating}}</p>
+    <p><strong>Count : </strong>{{product.stock}}</p>
+    <p><strong>Price : </strong>{{product.price}} $</p>
+  </div>
+</div>
+<app-spinner class="text-center text-black mt-5" *ngIf="product.id === 0"></app-spinner>

@@ -1,0 +1,70 @@
+<div class="p-3 border border-1 my-4 text-center ">
+  <div class="my-3">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Total</th>
+          <th scope="col">Total Quantity</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cart of carts; let index = index">
+          <th scope="row">{{index + 1}}</th>
+          <td>{{cart.total}} $</td>
+          <td>{{cart.totalQuantity}}</td>
+          <td>
+            <span class="btn btn-danger p-2 mx-2" (click)="delete(cart)">Delete</span>
+            <span class="btn btn-info p-2" data-bs-toggle="modal" data-bs-target="#view" (click)="view(index+1)">View</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<div class="modal fade" tabindex="-1" id="view">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 900px !important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cart Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover text-center">
+          <thead>
+            <tr>
+              <th></th>
+              <th>title</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of cartDetails.products; let index = index">
+              <td><img [src]="product.thumbnail" width="35" height="35"></td>
+              <td>{{product.title}}</td>
+              <td>{{product.price}} $</td>
+              <td>
+                {{product.quantity}}
+              </td>
+              <td>{{+product.price * product.quantity}} $</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total</strong> : {{cartDetails.total}} $</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

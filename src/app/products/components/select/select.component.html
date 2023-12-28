@@ -1,0 +1,7 @@
+<div class="select m-3">
+  <h3 class="">categories :</h3>
+  <select class="form-control w-25" (change)="changeHappend($event)">
+    <option value="all">All</option>
+    <option *ngFor="let category of getcategories" [value]="category">{{category}}</option>
+  </select>
+</div>
